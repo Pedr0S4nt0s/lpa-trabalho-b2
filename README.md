@@ -34,16 +34,14 @@ O sistema disponibiliza um menu interativo com as seguintes opções:
 
 O sistema utiliza:
 
-- Funções para modularização das operações do sistema.
-- Matriz para representar as vagas do estacionamento.
-- Estrutura `struct` para representar os veículos.
-- Vetor dinâmico para armazenar os veículos cadastrados e alocação dinâmica de memória utilizando `malloc` e `realloc`.
+Uma matriz bidimensional para representar as vagas,
+uma estrutura `struct` para armazenar os dados dos veículos e um vetor
+dinâmico para gerenciar os registros.
 
+A alocação e o redimensionamento de memória são realizados por meio
+de `malloc` e `realloc`. A organização do programa em funções permite
+separar as responsabilidades das operações.
 ## Modularização
-
-O programa foi organizado em funções, separando as responsabilidades
-de cada operação e facilitando a compreensão, manutenção e reutilização
-do código.
 
 As principais funções são:
 
@@ -174,3 +172,8 @@ de situações inválidas.
 | T08 | Remover um veículo cadastrado | Veículo deve ser removido e a vaga liberada | Remoção realizada corretamente | Aprovado |
 | T09 | Consultar o relatório de ocupação após operações de cadastro e remoção | Quantidade de vagas ocupadas e livres deve corresponder à situação do estacionamento | Relatório apresentado corretamente | Aprovado |
 | T10 | Selecionar a opção de encerramento do programa | Programa deve encerrar corretamente | Programa encerrado | Aprovado |
+
+## Referências
+
+- Enunciado do trabalho disponibilizado na disciplina de Lógica de Programação e Algoritmos.
+- KIPPER. *Aprenda Git e GitHub do zero – guia completo*. YouTube. Disponível em: https://youtu.be/pyM5QLS2h6M. Acesso em: 22 nov. 2026.
