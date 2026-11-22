@@ -105,10 +105,21 @@ void exibirMapa(int mapa[FILEIRAS][COLUNAS])
 {
     int i, j;
 
-    printf("\nMAPA DO ESTACIONAMENTO\n\n");
+    printf("\n===== MAPA DO ESTACIONAMENTO =====\n\n");
+
+    printf("       ");
+
+    for (j = 0; j < COLUNAS; j++)
+    {
+        printf(" C%d ", j + 1);
+    }
+
+    printf("\n");
 
     for (i = 0; i < FILEIRAS; i++)
     {
+        printf("F%d     ", i + 1);
+
         for (j = 0; j < COLUNAS; j++)
         {
             if (mapa[i][j] == 1)
@@ -123,6 +134,8 @@ void exibirMapa(int mapa[FILEIRAS][COLUNAS])
 
         printf("\n");
     }
+
+    printf("\nLegenda: [.] Livre | [X] Ocupada\n");
 }
 
 void cadastrarVeiculo(
@@ -368,8 +381,6 @@ void movimentarVeiculo(
         return;
     }
 
-    /* Atualiza o mapa somente depois de todas as validacoes. */
-
     mapa[fileiraAtual][colunaAtual] = 0;
     mapa[novaFileira][novaColuna] = 1;
 
@@ -422,6 +433,43 @@ void removerVeiculo(
     printf("Vaga liberada!\n");
 }
 
+void listarVeiculos(Veiculo veiculos[], int quantidade)
+{
+    int i;
+
+    printf("\n===== LISTAGEM DE VEICULOS =====\n");
+
+    if (quantidade == 0)
+    {
+        printf("\nNenhum veiculo cadastrado.\n");
+        return;
+    }
+
+    printf("\nTotal de veiculos: %d\n\n", quantidade);
+
+    for (i = 0; i < quantidade; i++)
+    {
+        printf("----------------------------------\n");
+        printf("ID: %s\n", veiculos[i].id);
+        printf("Descricao: %s\n", veiculos[i].descricao);
+
+        if (veiculos[i].categoria == 1)
+        {
+            printf("Categoria: Carro\n");
+        }
+        else
+        {
+            printf("Categoria: Moto\n");
+        }
+
+        printf("Localizacao: Fileira %d, Coluna %d\n",
+               veiculos[i].fileira,
+               veiculos[i].coluna);
+    }
+
+    printf("----------------------------------\n");
+}
+
 void exibirMenu(void)
 {
     printf("\n===== ESTACIONAMENTO =====\n");
@@ -430,7 +478,8 @@ void exibirMenu(void)
     printf("3 - Atualizar veiculo\n");
     printf("4 - Movimentar veiculo\n");
     printf("5 - Remover veiculo\n");
-    printf("6 - Exibir mapa\n");
+    printf("6 - Listar veiculos\n");
+    printf("7 - Exibir mapa\n");
     printf("0 - Sair\n");
     printf("Escolha uma opcao: ");
 }
@@ -495,6 +544,10 @@ int main(void)
                 break;
 
             case 6:
+                listarVeiculos(veiculos, quantidade);
+                break;
+
+            case 7:
                 exibirMapa(mapa);
                 break;
 
