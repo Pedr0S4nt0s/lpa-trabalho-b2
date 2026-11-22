@@ -1,0 +1,4 @@
+estacionamento.exe
+*.o
+*.obj
+*.exe
