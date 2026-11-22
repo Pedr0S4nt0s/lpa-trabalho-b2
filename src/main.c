@@ -48,6 +48,21 @@ int validarID(const char id[])
     return 1;
 }
 
+int buscarVeiculo(Veiculo veiculos[], int quantidade, const char id[])
+{
+    int i;
+
+    for (i = 0; i < quantidade; i++)
+    {
+        if (strcmp(veiculos[i].id, id) == 0)
+        {
+            return i;
+        }
+    }
+
+    return -1;
+}
+
 void exibirMapa(int mapa[FILEIRAS][COLUNAS])
 {
     int i, j;
@@ -72,42 +87,112 @@ void exibirMapa(int mapa[FILEIRAS][COLUNAS])
     }
 }
 
-void testarID(void)
+void cadastrarVeiculo(
+    Veiculo veiculos[],
+    int *quantidade,
+    int mapa[FILEIRAS][COLUNAS])
 {
-    char id[TAM_ID + 20];
+    Veiculo novo;
+    char entrada[100];
 
-    printf("\nDigite um ID de 7 caracteres: ");
-
-    fgets(id, sizeof(id), stdin);
-
-    id[strcspn(id, "\n")] = '\0';
-
-    normalizarID(id);
-
-    printf("\nID normalizado: %s\n", id);
-
-    if (validarID(id))
+    if (*quantidade >= TOTAL_VAGAS)
     {
-        printf("ID valido!\n");
+        printf("\nEstacionamento cheio!\n");
+        return;
     }
-    else
+
+    printf("\n===== CADASTRO DE VEICULO =====\n");
+
+    printf("ID (7 caracteres): ");
+    fgets(entrada, sizeof(entrada), stdin);
+    entrada[strcspn(entrada, "\n")] = '\0';
+
+    normalizarID(entrada);
+
+    if (!validarID(entrada))
     {
-        printf("ID invalido! Deve possuir exatamente 7 caracteres alfanumericos.\n");
+        printf("\nID invalido!\n");
+        return;
     }
+
+    if (buscarVeiculo(veiculos, *quantidade, entrada) != -1)
+    {
+        printf("\nID ja cadastrado!\n");
+        return;
+    }
+
+    strcpy(novo.id, entrada);
+
+    printf("Descricao do veiculo: ");
+    fgets(novo.descricao, sizeof(novo.descricao), stdin);
+    novo.descricao[strcspn(novo.descricao, "\n")] = '\0';
+
+    printf("Categoria (1-Carro / 2-Moto): ");
+    scanf("%d", &novo.categoria);
+    getchar();
+
+    if (novo.categoria != 1 && novo.categoria != 2)
+    {
+        printf("\nCategoria invalida!\n");
+        return;
+    }
+
+    printf("Fileira (1 a 4): ");
+    scanf("%d", &novo.fileira);
+    getchar();
+
+    if (novo.fileira < 1 || novo.fileira > FILEIRAS)
+    {
+        printf("\nFileira invalida!\n");
+        return;
+    }
+
+    printf("Coluna (1 a 5): ");
+    scanf("%d", &novo.coluna);
+    getchar();
+
+    if (novo.coluna < 1 || novo.coluna > COLUNAS)
+    {
+        printf("\nColuna invalida!\n");
+        return;
+    }
+
+    if (mapa[novo.fileira - 1][novo.coluna - 1] == 1)
+    {
+        printf("\nVaga ocupada!\n");
+        return;
+    }
+
+    veiculos[*quantidade] = novo;
+
+    mapa[novo.fileira - 1][novo.coluna - 1] = 1;
+
+    (*quantidade)++;
+
+    printf("\nVeiculo cadastrado com sucesso!\n");
+}
+
+void exibirMenu(void)
+{
+    printf("\n===== ESTACIONAMENTO =====\n");
+    printf("1 - Cadastrar veiculo\n");
+    printf("2 - Exibir mapa\n");
+    printf("0 - Sair\n");
+    printf("Escolha uma opcao: ");
 }
 
 int main(void)
 {
     int mapa[FILEIRAS][COLUNAS] = {0};
+
+    Veiculo veiculos[TOTAL_VAGAS];
+
+    int quantidade = 0;
     int opcao;
 
     do
     {
-        printf("\n===== ESTACIONAMENTO =====\n");
-        printf("1 - Exibir mapa\n");
-        printf("2 - Testar ID\n");
-        printf("0 - Sair\n");
-        printf("Escolha uma opcao: ");
+        exibirMenu();
 
         scanf("%d", &opcao);
         getchar();
@@ -115,11 +200,11 @@ int main(void)
         switch (opcao)
         {
             case 1:
-                exibirMapa(mapa);
+                cadastrarVeiculo(veiculos, &quantidade, mapa);
                 break;
 
             case 2:
-                testarID();
+                exibirMapa(mapa);
                 break;
 
             case 0:
