@@ -158,18 +158,18 @@ O histórico foi organizado em oito etapas:
 
 Os testes foram realizados manualmente, por meio da execução do programa, verificando o funcionamento das funcionalidades implementadas e o tratamento de situações inválidas.
 
-| Teste | Entrada/Operação | Resultado Esperado | Resultado Obtido | Status |
+| Teste | Entrada / Operação | Resultado Esperado | Resultado Observado | Status |
 |---|---|---|---|---|
-| T01 | Iniciar o programa e consultar o mapa do estacionamento vazio | Todas as 20 vagas devem estar livres | Sistema iniciado corretamente, com todas as vagas disponíveis | Aprovado |
-| T02 | Cadastrar um veículo utilizando identificador válido e vaga disponível | Veículo deve ser cadastrado na vaga escolhida | Cadastro realizado com sucesso | Aprovado |
-| T03 | Tentar cadastrar um veículo utilizando identificador já existente, alterando letras maiúsculas/minúsculas | Cadastro deve ser recusado | Identificador duplicado recusado | Aprovado |
-| T04 | Tentar cadastrar um veículo em uma vaga já ocupada | Operação deve ser recusada | Vaga ocupada identificada e operação recusada | Aprovado |
-| T05 | Cadastrar veículos até ultrapassar a capacidade inicial do vetor | Capacidade do vetor deve ser ampliada automaticamente | Coleção expandida corretamente | Aprovado |
-| T06 | Consultar um veículo e atualizar sua descrição e categoria | Dados devem ser atualizados sem alterar o identificador | Dados atualizados corretamente | Aprovado |
-| T07 | Movimentar um veículo para outra vaga disponível | Veículo deve ocupar nova vaga e liberar a anterior | Movimentação realizada corretamente | Aprovado |
-| T08 | Remover um veículo cadastrado | Veículo deve ser removido e a vaga liberada | Remoção realizada corretamente | Aprovado |
-| T09 | Consultar o relatório de ocupação após operações de cadastro e remoção | Quantidade de vagas ocupadas e livres deve corresponder à situação do estacionamento | Relatório apresentado corretamente | Aprovado |
-| T10 | Selecionar a opção de encerramento do programa | Programa deve encerrar corretamente | Programa encerrado | Aprovado |
+| T01 – Estacionamento vazio | Iniciar o sistema sem veículos cadastrados. | O sistema deve apresentar o estacionamento vazio, com todas as vagas disponíveis. | O sistema iniciou corretamente, apresentando todas as vagas livres e nenhum veículo cadastrado. | Aprovado |
+| T02 – Cadastro de veículo | Cadastrar um veículo com dados válidos e uma vaga disponível. | O veículo deve ser cadastrado com sucesso, ocupando a vaga escolhida. | O veículo foi cadastrado corretamente e a vaga passou a constar como ocupada. | Aprovado |
+| T03 – Cadastro duplicado | Tentar cadastrar um veículo utilizando uma placa já registrada. | O sistema deve identificar a duplicidade e impedir o cadastro. | O sistema identificou a placa duplicada e impediu o novo cadastro. | Aprovado |
+| T04 – Vaga inválida ou ocupada | Tentar cadastrar um veículo em uma vaga inválida ou já ocupada. | O sistema deve rejeitar a operação sem alterar os dados existentes. | O sistema recusou a operação e manteve os dados e a ocupação anteriores. | Aprovado |
+| T05 – Expansão dinâmica | Cadastrar veículos até ultrapassar a capacidade inicial do vetor dinâmico. | O sistema deve ampliar a capacidade de armazenamento automaticamente, sem perda de dados. | A capacidade do vetor foi ampliada automaticamente e os registros anteriores foram preservados. | Aprovado |
+| T06 – Atualização de cadastro | Selecionar um veículo cadastrado e alterar seus dados. | O sistema deve atualizar os dados do veículo corretamente. | Os dados do veículo foram atualizados com sucesso. | Aprovado |
+| T07 – Movimentação de veículo | Transferir um veículo de uma vaga para outra vaga disponível. | O sistema deve liberar a vaga original e ocupar a nova vaga, mantendo a consistência dos dados. | A movimentação foi realizada corretamente, com atualização das vagas e dos dados do veículo. | Aprovado |
+| T08 – Remoção de veículo | Remover um veículo previamente cadastrado. | O sistema deve excluir o registro, liberar a vaga e atualizar a quantidade de veículos. | O veículo foi removido corretamente, a vaga foi liberada e a quantidade de registros foi atualizada. | Aprovado |
+| T09 – Lotação máxima | Cadastrar 20 veículos, ocupando todas as vagas, e tentar cadastrar o 21º veículo. | O sistema deve recusar o cadastro adicional, informar que o estacionamento está lotado e manter a quantidade de veículos em 20. | O sistema recusou o cadastro do 21º veículo, mantendo os 20 registros e todas as vagas ocupadas. | Aprovado |
+| T10 – Liberação de memória | Encerrar o sistema após realizar operações de cadastro e remoção. | O sistema deve liberar corretamente a memória alocada dinamicamente. | A memória alocada dinamicamente foi liberada ao final da execução. | Aprovado |
 
 ## Uso de Inteligência Artificial
 
