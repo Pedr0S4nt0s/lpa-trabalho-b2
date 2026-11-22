@@ -6,6 +6,7 @@
 #define FILEIRAS 4
 #define COLUNAS 5
 #define TOTAL_VAGAS 20
+#define CAPACIDADE_INICIAL 2
 #define TAM_ID 7
 #define TAM_DESCRICAO 60
 
@@ -63,6 +64,43 @@ int buscarVeiculo(Veiculo veiculos[], int quantidade, const char id[])
     return -1;
 }
 
+int aumentarCapacidade(Veiculo **veiculos, int *capacidade)
+{
+    int novaCapacidade;
+    Veiculo *temporario;
+
+    if (*capacidade >= TOTAL_VAGAS)
+    {
+        return 0;
+    }
+
+    novaCapacidade = *capacidade * 2;
+
+    if (novaCapacidade > TOTAL_VAGAS)
+    {
+        novaCapacidade = TOTAL_VAGAS;
+    }
+
+    temporario = realloc(
+        *veiculos,
+        novaCapacidade * sizeof(Veiculo)
+    );
+
+    if (temporario == NULL)
+    {
+        printf("\nErro ao aumentar a capacidade do vetor!\n");
+        return 0;
+    }
+
+    *veiculos = temporario;
+    *capacidade = novaCapacidade;
+
+    printf("\nCapacidade do vetor aumentada para %d veiculos.\n",
+           *capacidade);
+
+    return 1;
+}
+
 void exibirMapa(int mapa[FILEIRAS][COLUNAS])
 {
     int i, j;
@@ -88,8 +126,9 @@ void exibirMapa(int mapa[FILEIRAS][COLUNAS])
 }
 
 void cadastrarVeiculo(
-    Veiculo veiculos[],
+    Veiculo **veiculos,
     int *quantidade,
+    int *capacidade,
     int mapa[FILEIRAS][COLUNAS])
 {
     Veiculo novo;
@@ -115,7 +154,7 @@ void cadastrarVeiculo(
         return;
     }
 
-    if (buscarVeiculo(veiculos, *quantidade, entrada) != -1)
+    if (buscarVeiculo(*veiculos, *quantidade, entrada) != -1)
     {
         printf("\nID ja cadastrado!\n");
         return;
@@ -163,7 +202,15 @@ void cadastrarVeiculo(
         return;
     }
 
-    veiculos[*quantidade] = novo;
+    if (*quantidade == *capacidade)
+    {
+        if (!aumentarCapacidade(veiculos, capacidade))
+        {
+            return;
+        }
+    }
+
+    (*veiculos)[*quantidade] = novo;
 
     mapa[novo.fileira - 1][novo.coluna - 1] = 1;
 
@@ -185,10 +232,18 @@ int main(void)
 {
     int mapa[FILEIRAS][COLUNAS] = {0};
 
-    Veiculo veiculos[TOTAL_VAGAS];
-
+    Veiculo *veiculos;
     int quantidade = 0;
+    int capacidade = CAPACIDADE_INICIAL;
     int opcao;
+
+    veiculos = malloc(capacidade * sizeof(Veiculo));
+
+    if (veiculos == NULL)
+    {
+        printf("Erro ao alocar memoria!\n");
+        return 1;
+    }
 
     do
     {
@@ -200,7 +255,12 @@ int main(void)
         switch (opcao)
         {
             case 1:
-                cadastrarVeiculo(veiculos, &quantidade, mapa);
+                cadastrarVeiculo(
+                    &veiculos,
+                    &quantidade,
+                    &capacidade,
+                    mapa
+                );
                 break;
 
             case 2:
@@ -216,6 +276,8 @@ int main(void)
         }
 
     } while (opcao != 0);
+
+    free(veiculos);
 
     return 0;
 }
