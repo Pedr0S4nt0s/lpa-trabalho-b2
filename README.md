@@ -1,12 +1,12 @@
---Sistema de Controle de Estacionamento--
+## Sistema de Controle de Estacionamento
 
---Descrição do Projeto--
+## Descrição do Projeto
 
 Sistema desenvolvido em linguagem C para controle de um estacionamento com capacidade para 20, distribuídos em 4 fileiras e 5 colunas.
 
 O sistema permite cadastrar, consultar, atualizar, movimentar, remover e listar veículos, além de exibir o mapa do estacionamento e um relatório de ocupação.
 
---Funcionalidades--
+## Funcionalidades
 
 - Cadastro de veículos.
 - Consulta de veículos por identificador.
@@ -18,7 +18,7 @@ O sistema permite cadastrar, consultar, atualizar, movimentar, remover e listar 
 - Relatório de ocupação.
 - Controle de vagas disponíveis e ocupadas.
 
---Estruturas de Dados--
+## Estruturas de Dados
 
 O sistema utiliza:
 
@@ -28,14 +28,14 @@ O sistema utiliza:
 - Alocação dinâmica de memória utilizando malloc e reallocz.
 - Funções para modularização das operações do sistema.
 
---Organização dos Arquivos--
+## Organização dos Arquivos
 
 Estacionamento/
 ├── README.md
 └── src/
     └── main.c
 
---Compilação--
+## Compilação
 
 O programa pode ser compilado utilizando o GCC, com suporte ao padrão C11.
 
@@ -57,9 +57,21 @@ cmd
 estacionamento.exe
 ---
 
---Limitações--
+## Limitações
 
 Os dados cadastrados permanecem disponíveis somente durante a execução do programa. Ao encerrar o sistema, os dados são perdidos.
 
 O sistema possui capacidade máxima de 20 veículos, correspondente à quantidade de vagas disponíveis.
 
+## Desenvolvimento
+
+Projeto desenvolvido individualmente, devido à
+dificuldade de encontrar uma dupla para realizar o trabalho.
+
+## Controle de Versão
+
+O projeto utiliza Git e GitHub para controle de versão,
+organização e registro do desenvolvimento.
+
+O desenvolvimento está sendo realizado na branch
+`Desenvolvimento-Individual`.
