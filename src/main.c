@@ -302,13 +302,135 @@ void atualizarVeiculo(Veiculo veiculos[], int quantidade)
     printf("\nVeiculo atualizado com sucesso!\n");
 }
 
+void movimentarVeiculo(
+    Veiculo veiculos[],
+    int quantidade,
+    int mapa[FILEIRAS][COLUNAS])
+{
+    char id[TAM_ID + 20];
+    int indice;
+    int novaFileira;
+    int novaColuna;
+    int fileiraAtual;
+    int colunaAtual;
+
+    printf("\n===== MOVIMENTACAO DE VEICULO =====\n");
+
+    printf("Digite o ID do veiculo: ");
+    fgets(id, sizeof(id), stdin);
+    id[strcspn(id, "\n")] = '\0';
+
+    normalizarID(id);
+
+    indice = buscarVeiculo(veiculos, quantidade, id);
+
+    if (indice == -1)
+    {
+        printf("\nVeiculo nao encontrado!\n");
+        return;
+    }
+
+    fileiraAtual = veiculos[indice].fileira - 1;
+    colunaAtual = veiculos[indice].coluna - 1;
+
+    printf("\nPosicao atual: Fileira %d, Coluna %d\n",
+           veiculos[indice].fileira,
+           veiculos[indice].coluna);
+
+    printf("Nova fileira (1 a 4): ");
+    scanf("%d", &novaFileira);
+    getchar();
+
+    printf("Nova coluna (1 a 5): ");
+    scanf("%d", &novaColuna);
+    getchar();
+
+    if (novaFileira < 1 || novaFileira > FILEIRAS ||
+        novaColuna < 1 || novaColuna > COLUNAS)
+    {
+        printf("\nPosicao invalida! Movimentacao cancelada.\n");
+        return;
+    }
+
+    novaFileira--;
+    novaColuna--;
+
+    if (mapa[novaFileira][novaColuna] == 1)
+    {
+        if (novaFileira == fileiraAtual &&
+            novaColuna == colunaAtual)
+        {
+            printf("\nO veiculo ja esta nessa vaga!\n");
+            return;
+        }
+
+        printf("\nVaga ocupada! Movimentacao cancelada.\n");
+        return;
+    }
+
+    /* Atualiza o mapa somente depois de todas as validacoes. */
+
+    mapa[fileiraAtual][colunaAtual] = 0;
+    mapa[novaFileira][novaColuna] = 1;
+
+    veiculos[indice].fileira = novaFileira + 1;
+    veiculos[indice].coluna = novaColuna + 1;
+
+    printf("\nVeiculo movimentado com sucesso!\n");
+}
+
+void removerVeiculo(
+    Veiculo veiculos[],
+    int *quantidade,
+    int mapa[FILEIRAS][COLUNAS])
+{
+    char id[TAM_ID + 20];
+    int indice;
+    int i;
+    int fileira;
+    int coluna;
+
+    printf("\n===== REMOCAO DE VEICULO =====\n");
+
+    printf("Digite o ID do veiculo: ");
+    fgets(id, sizeof(id), stdin);
+    id[strcspn(id, "\n")] = '\0';
+
+    normalizarID(id);
+
+    indice = buscarVeiculo(veiculos, *quantidade, id);
+
+    if (indice == -1)
+    {
+        printf("\nVeiculo nao encontrado!\n");
+        return;
+    }
+
+    fileira = veiculos[indice].fileira - 1;
+    coluna = veiculos[indice].coluna - 1;
+
+    mapa[fileira][coluna] = 0;
+
+    for (i = indice; i < *quantidade - 1; i++)
+    {
+        veiculos[i] = veiculos[i + 1];
+    }
+
+    (*quantidade)--;
+
+    printf("\nVeiculo removido com sucesso!\n");
+    printf("Vaga liberada!\n");
+}
+
 void exibirMenu(void)
 {
     printf("\n===== ESTACIONAMENTO =====\n");
     printf("1 - Cadastrar veiculo\n");
     printf("2 - Consultar veiculo\n");
     printf("3 - Atualizar veiculo\n");
-    printf("4 - Exibir mapa\n");
+    printf("4 - Movimentar veiculo\n");
+    printf("5 - Remover veiculo\n");
+    printf("6 - Exibir mapa\n");
     printf("0 - Sair\n");
     printf("Escolha uma opcao: ");
 }
@@ -357,6 +479,22 @@ int main(void)
                 break;
 
             case 4:
+                movimentarVeiculo(
+                    veiculos,
+                    quantidade,
+                    mapa
+                );
+                break;
+
+            case 5:
+                removerVeiculo(
+                    veiculos,
+                    &quantidade,
+                    mapa
+                );
+                break;
+
+            case 6:
                 exibirMapa(mapa);
                 break;
 
