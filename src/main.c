@@ -219,11 +219,96 @@ void cadastrarVeiculo(
     printf("\nVeiculo cadastrado com sucesso!\n");
 }
 
+void consultarVeiculo(Veiculo veiculos[], int quantidade)
+{
+    char id[TAM_ID + 20];
+    int indice;
+
+    printf("\n===== CONSULTA DE VEICULO =====\n");
+
+    printf("Digite o ID: ");
+    fgets(id, sizeof(id), stdin);
+    id[strcspn(id, "\n")] = '\0';
+
+    normalizarID(id);
+
+    indice = buscarVeiculo(veiculos, quantidade, id);
+
+    if (indice == -1)
+    {
+        printf("\nVeiculo nao encontrado!\n");
+        return;
+    }
+
+    printf("\nVEICULO ENCONTRADO\n");
+    printf("ID: %s\n", veiculos[indice].id);
+    printf("Descricao: %s\n", veiculos[indice].descricao);
+
+    if (veiculos[indice].categoria == 1)
+    {
+        printf("Categoria: Carro\n");
+    }
+    else
+    {
+        printf("Categoria: Moto\n");
+    }
+
+    printf("Fileira: %d\n", veiculos[indice].fileira);
+    printf("Coluna: %d\n", veiculos[indice].coluna);
+}
+
+void atualizarVeiculo(Veiculo veiculos[], int quantidade)
+{
+    char id[TAM_ID + 20];
+    char novaDescricao[TAM_DESCRICAO + 1];
+    int novaCategoria;
+    int indice;
+
+    printf("\n===== ATUALIZACAO DE VEICULO =====\n");
+
+    printf("Digite o ID do veiculo: ");
+    fgets(id, sizeof(id), stdin);
+    id[strcspn(id, "\n")] = '\0';
+
+    normalizarID(id);
+
+    indice = buscarVeiculo(veiculos, quantidade, id);
+
+    if (indice == -1)
+    {
+        printf("\nVeiculo nao encontrado!\n");
+        return;
+    }
+
+    printf("\nVeiculo encontrado: %s\n", veiculos[indice].descricao);
+
+    printf("Nova descricao: ");
+    fgets(novaDescricao, sizeof(novaDescricao), stdin);
+    novaDescricao[strcspn(novaDescricao, "\n")] = '\0';
+
+    printf("Nova categoria (1-Carro / 2-Moto): ");
+    scanf("%d", &novaCategoria);
+    getchar();
+
+    if (novaCategoria != 1 && novaCategoria != 2)
+    {
+        printf("\nCategoria invalida! Atualizacao cancelada.\n");
+        return;
+    }
+
+    strcpy(veiculos[indice].descricao, novaDescricao);
+    veiculos[indice].categoria = novaCategoria;
+
+    printf("\nVeiculo atualizado com sucesso!\n");
+}
+
 void exibirMenu(void)
 {
     printf("\n===== ESTACIONAMENTO =====\n");
     printf("1 - Cadastrar veiculo\n");
-    printf("2 - Exibir mapa\n");
+    printf("2 - Consultar veiculo\n");
+    printf("3 - Atualizar veiculo\n");
+    printf("4 - Exibir mapa\n");
     printf("0 - Sair\n");
     printf("Escolha uma opcao: ");
 }
@@ -264,6 +349,14 @@ int main(void)
                 break;
 
             case 2:
+                consultarVeiculo(veiculos, quantidade);
+                break;
+
+            case 3:
+                atualizarVeiculo(veiculos, quantidade);
+                break;
+
+            case 4:
                 exibirMapa(mapa);
                 break;
 
