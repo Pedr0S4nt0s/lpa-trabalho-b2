@@ -470,9 +470,40 @@ void listarVeiculos(Veiculo veiculos[], int quantidade)
     printf("----------------------------------\n");
 }
 
+void relatorioOcupacao(int quantidade)
+{
+    int vagasLivres;
+    float percentualOcupacao;
+    float percentualDisponibilidade;
+
+    vagasLivres = TOTAL_VAGAS - quantidade;
+
+    percentualOcupacao =
+        (float)quantidade / TOTAL_VAGAS * 100;
+
+    percentualDisponibilidade =
+        (float)vagasLivres / TOTAL_VAGAS * 100;
+
+    printf("\n===== RELATORIO DE OCUPACAO =====\n\n");
+
+    printf("Total de vagas: %d\n", TOTAL_VAGAS);
+    printf("Vagas ocupadas: %d\n", quantidade);
+    printf("Vagas livres: %d\n", vagasLivres);
+
+    printf("Percentual de ocupacao: %.2f%%\n",
+           percentualOcupacao);
+
+    printf("Percentual de disponibilidade: %.2f%%\n",
+           percentualDisponibilidade);
+
+    printf("\n=================================\n");
+}
+
 void exibirMenu(void)
 {
-    printf("\n===== ESTACIONAMENTO =====\n");
+    printf("\n====================================\n");
+    printf("      SISTEMA DE ESTACIONAMENTO\n");
+    printf("====================================\n");
     printf("1 - Cadastrar veiculo\n");
     printf("2 - Consultar veiculo\n");
     printf("3 - Atualizar veiculo\n");
@@ -480,7 +511,9 @@ void exibirMenu(void)
     printf("5 - Remover veiculo\n");
     printf("6 - Listar veiculos\n");
     printf("7 - Exibir mapa\n");
+    printf("8 - Relatorio de ocupacao\n");
     printf("0 - Sair\n");
+    printf("------------------------------------\n");
     printf("Escolha uma opcao: ");
 }
 
@@ -551,6 +584,10 @@ int main(void)
                 exibirMapa(mapa);
                 break;
 
+            case 8:
+                relatorioOcupacao(quantidade);
+                break;
+
             case 0:
                 printf("\nEncerrando o programa...\n");
                 break;
@@ -562,6 +599,8 @@ int main(void)
     } while (opcao != 0);
 
     free(veiculos);
+
+    printf("\nMemoria liberada com sucesso.\n");
 
     return 0;
 }
