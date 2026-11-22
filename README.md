@@ -32,15 +32,10 @@ O sistema disponibiliza um menu interativo com as seguintes opções:
 
 ## Estruturas de Dados
 
-O sistema utiliza:
+O sistema utiliza uma matriz bidimensional para representar as vagas, uma estrutura `struct` para armazenar os dados dos veículos e um vetor dinâmico para gerenciar os registros.
 
-Uma matriz bidimensional para representar as vagas,
-uma estrutura `struct` para armazenar os dados dos veículos e um vetor
-dinâmico para gerenciar os registros.
+A alocação e o redimensionamento de memória são realizados por meio de `malloc` e `realloc`. A organização do programa em funções permite separar as responsabilidades das operações.
 
-A alocação e o redimensionamento de memória são realizados por meio
-de `malloc` e `realloc`. A organização do programa em funções permite
-separar as responsabilidades das operações.
 ## Modularização
 
 As principais funções são:
@@ -60,46 +55,37 @@ As principais funções são:
 | `validarID` | Verifica se o identificador informado atende aos critérios estabelecidos. |
 | `exibirMenu` | Apresenta as opções disponíveis para o usuário. |
 
-A função `main` é responsável pela inicialização das estruturas de dados,
-pela alocação inicial de memória, pelo controle do menu principal e pelo
-encerramento do programa, incluindo a liberação da memória utilizada.
+A função `main` é responsável pela inicialização das estruturas de dados, pela alocação inicial de memória, pelo controle do menu principal e pelo encerramento do programa, incluindo a liberação da memória utilizada.
 
 ### Matriz do Estacionamento
 
-O estacionamento é representado por uma matriz bidimensional de inteiros,
-com 4 linhas e 5 colunas, totalizando 20 vagas.
+O estacionamento é representado por uma matriz bidimensional de inteiros, com 4 linhas e 5 colunas, totalizando 20 vagas.
 
 Cada posição da matriz representa uma vaga:
+
 - `0`: vaga livre.
 - `1`: vaga ocupada.
 
-A matriz permite controlar a ocupação das vagas e visualizar a disposição
-dos veículos no estacionamento.
+A matriz permite controlar a ocupação das vagas e visualizar a disposição dos veículos no estacionamento.
 
 ### Estrutura dos Veículos
 
-Cada veículo é representado por uma estrutura `struct`, contendo informações
-como identificador, descrição, categoria e localização no estacionamento
-(linha e coluna).
+Cada veículo é representado por uma estrutura `struct`, contendo informações como identificador, descrição, categoria e localização no estacionamento (linha e coluna).
 
 ### Vetor Dinâmico
 
-Os veículos cadastrados são armazenados em um vetor dinâmico, inicialmente
-alocado para 2 elementos.
+Os veículos cadastrados são armazenados em um vetor dinâmico, inicialmente alocado para 2 elementos.
 
 O sistema controla:
+
 - **Quantidade:** número de veículos atualmente cadastrados.
 - **Capacidade:** número de elementos que o vetor pode armazenar.
 
-Quando a quantidade de veículos atinge a capacidade do vetor, a memória
-é redimensionada utilizando `realloc`, aumentando a capacidade de
-armazenamento.
+Quando a quantidade de veículos atinge a capacidade do vetor, a memória é redimensionada utilizando `realloc`, aumentando a capacidade de armazenamento.
 
-O vetor possui limite máximo de 20 veículos, correspondente à capacidade
-total do estacionamento.
+O vetor possui limite máximo de 20 veículos, correspondente à capacidade total do estacionamento.
 
-A memória é alocada inicialmente com `malloc` e liberada ao encerrar
-o programa utilizando `free`.
+A memória é alocada inicialmente com `malloc` e liberada ao encerrar o programa utilizando `free`.
 
 ## Organização dos Arquivos
 
@@ -139,12 +125,9 @@ O sistema possui capacidade máxima de 20 veículos, correspondente à quantidad
 
 ## Desenvolvimento e Responsabilidades
 
-O trabalho foi desenvolvido individualmente, devido à dificuldade de encontrar
-uma dupla.
+O trabalho foi desenvolvido individualmente, devido à dificuldade de encontrar uma dupla.
 
-O desenvolvedor realizou a implementação das funcionalidades
-do sistema, organização do código, utilização das estruturas de dados,
-realização de testes, documentação e gerenciamento do repositório GitHub.
+O desenvolvedor realizou a implementação das funcionalidades do sistema, organização do código, utilização das estruturas de dados, realização de testes, documentação e gerenciamento do repositório GitHub.
 
 As responsabilidades pelas etapas do projeto foram assumidas pelo desenvolvedor.
 
@@ -152,13 +135,28 @@ As responsabilidades pelas etapas do projeto foram assumidas pelo desenvolvedor.
 
 O projeto utiliza Git e GitHub para controle de versão, organização e registro do desenvolvimento.
 
-O desenvolvimento está sendo realizado na branch `Desenvolvimento-Individual`.
+A branch `Desenvolvimento-Individual` contém a versão consolidada do projeto.
+
+O histórico de desenvolvimento também contém commits referentes às etapas de construção das funcionalidades.
+
+**Observação:** o histórico das etapas foi organizado retrospectivamente após a conclusão do programa, com o objetivo de documentar a evolução das funcionalidades. Os commits correspondentes foram realizados posteriormente, não representando registros cronológicos originais de cada etapa de implementação.
+
+## Etapas de Desenvolvimento
+
+O histórico foi organizado em oito etapas:
+
+1. Estrutura inicial e mapa do estacionamento.
+2. Estrutura de veículo e validação de identificador.
+3. Cadastro de veículos e controle de ocupação.
+4. Implementação do vetor dinâmico e realocação de memória.
+5. Implementação de consulta e atualização de veículos.
+6. Implementação de movimentação e remoção de veículos.
+7. Implementação de listagem e mapa identificado.
+8. Relatório de ocupação e finalização do programa.
 
 ## Testes
 
-Os testes foram realizados manualmente, por meio da execução do programa,
-verificando o funcionamento das funcionalidades implementadas e o tratamento
-de situações inválidas.
+Os testes foram realizados manualmente, por meio da execução do programa, verificando o funcionamento das funcionalidades implementadas e o tratamento de situações inválidas.
 
 | Teste | Entrada/Operação | Resultado Esperado | Resultado Obtido | Status |
 |---|---|---|---|---|
@@ -173,7 +171,24 @@ de situações inválidas.
 | T09 | Consultar o relatório de ocupação após operações de cadastro e remoção | Quantidade de vagas ocupadas e livres deve corresponder à situação do estacionamento | Relatório apresentado corretamente | Aprovado |
 | T10 | Selecionar a opção de encerramento do programa | Programa deve encerrar corretamente | Programa encerrado | Aprovado |
 
+## Uso de Inteligência Artificial
+
+Utilizada inteligência artificial como ferramenta de apoio durante o desenvolvimento do trabalho.
+
+A IA foi utilizada para:
+
+- Auxiliar na compreensão de erros e na resolução.
+- Auxiliar em partes do código que estava com dificuldade.
+- Revisão final do código para garantir que estava correto.
+- criação de commit no Git/GitHub.
+
+### Exemplos de solicitações realizadas à IA
+
+- Solicitação de auxílio para compreender e corrigir erros encontrados durante a compilação e execução.
+- Solicitação de revisão do código por inteiro para garantir que estava correto.
+- Solicitação de orientação para utilizar commits, branches e integração de alterações no GitHub Desktop.
+
 ## Referências
 
 - Enunciado do trabalho disponibilizado na disciplina de Lógica de Programação e Algoritmos.
-- KIPPER. *Aprenda Git e GitHub do zero – guia completo*. YouTube. Disponível em: https://youtu.be/pyM5QLS2h6M. Acesso em: 22 nov. 2026.
+- KIPPER. *Aprenda Git e GitHub do zero – guia completo*. YouTube. Disponível em: https://youtu.be/pyM5QLS2h6M.
